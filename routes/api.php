@@ -23,6 +23,8 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
         ->name('categories.index');
     Route::get('posts', 'Api\PostsController@index')
         ->name('posts.index');
+    Route::get('posts/{post}', 'Api\PostsController@show')
+        ->name('posts.show');
     Route::patch('setting', 'Api\SettingController@update')
         ->name('setting.update');
     Route::get('setting', 'Api\SettingController@index')

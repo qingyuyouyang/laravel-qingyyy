@@ -10,6 +10,11 @@ class PostsController extends Controller
 {
     public function index()
     {
-        return Post::all();
+        return response()->json(Post::all());
+    }
+
+    public function show(Post $post)
+    {
+        return response()->json($post);
     }
 }
