@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use TCG\Voyager\Models\Post;
+use Parsedown;
 
 class PostsController extends Controller
 {
@@ -13,8 +14,10 @@ class PostsController extends Controller
         return response()->json(Post::all());
     }
 
-    public function show(Post $post)
+    public function show(Parsedown $parsedown, Post $post)
     {
+
+        $post->body = $parsedown->text($post->body);
         return response()->json($post);
     }
 }
