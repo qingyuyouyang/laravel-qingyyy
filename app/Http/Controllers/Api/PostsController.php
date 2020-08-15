@@ -9,9 +9,13 @@ use Parsedown;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Parsedown $parsedown)
     {
-        return response()->json(Post::all());
+        $posts = Post::all();
+        foreach ($posts as $post) {
+            $post->body = $parsedown->text($post->body);
+        }
+        return response()->json($posts);
     }
 
     public function show(Parsedown $parsedown, Post $post)
