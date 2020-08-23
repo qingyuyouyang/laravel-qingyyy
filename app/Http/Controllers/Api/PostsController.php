@@ -24,4 +24,13 @@ class PostsController extends Controller
         $post->body = $parsedown->text($post->body);
         return response()->json($post);
     }
+
+    public function category(Parsedown $parsedown, Request $request)
+    {
+        $categories = Post::where('category_id', $request->category_id)->get();
+        foreach ($categories as $category) {
+            $category->body = $parsedown->text($category->body);
+        }
+        return response()->json($categories);
+    }
 }
