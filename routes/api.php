@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('v1')->name('api.v1.')->group(function() {
     Route::get('categories', 'Api\CategoriesController@index')
         ->name('categories.index');
-    Route::get('posts', 'Api\PostsController@index')
+    Route::patch('posts', 'Api\PostsController@index')
         ->name('posts.index');
     Route::patch('posts/category', 'Api\PostsController@category')
         ->name('posts.category');

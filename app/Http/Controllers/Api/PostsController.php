@@ -11,7 +11,7 @@ class PostsController extends Controller
 {
     public function index(Parsedown $parsedown)
     {
-        $posts = Post::all();
+        $posts = Post::paginate(3);
         foreach ($posts as $post) {
             $post->body = $parsedown->text($post->body);
         }
