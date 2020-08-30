@@ -27,7 +27,7 @@ class PostsController extends Controller
 
     public function category(Parsedown $parsedown, Request $request)
     {
-        $categories = Post::where('category_id', $request->category_id)->get();
+        $categories = Post::where('category_id', $request->category_id)->paginate(3);
         foreach ($categories as $category) {
             $category->body = $parsedown->text($category->body);
         }
