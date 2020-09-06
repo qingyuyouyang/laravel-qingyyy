@@ -12,7 +12,7 @@ class PostsController extends Controller
 {
     public function index(Parsedown $parsedown)
     {
-        $posts = Post::paginate(3);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
         foreach ($posts as $post) {
             $post->body = $parsedown->text($post->body);
         }
@@ -29,7 +29,7 @@ class PostsController extends Controller
 
     public function category(Parsedown $parsedown, Request $request)
     {
-        $categories = Post::where('category_id', $request->category_id)->paginate(3);
+        $categories = Post::where('category_id', $request->category_id)->orderBy('created_at', 'desc')->paginate(3);
         foreach ($categories as $category) {
             $category->body = $parsedown->text($category->body);
         }
