@@ -10,12 +10,10 @@ use Parsedown;
 
 class PostsController extends Controller
 {
-    public function index(Parsedown $parsedown)
+    public function index(Post $post)
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
-        foreach ($posts as $post) {
-            $post->body = $parsedown->text($post->body);
-        }
+        $posts = Post::orderBy('created_at', 'desc')->with('category')->paginate(3);
+        $posts->category_name = $post->category;
         return response()->json($posts);
     }
 
