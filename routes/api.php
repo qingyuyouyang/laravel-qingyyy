@@ -31,4 +31,6 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
         ->name('setting.update');
     Route::get('setting', 'Api\SettingController@index')
         ->name('setting.index');
+    Route::get('setting/website', 'Api\SettingController@website')
+        ->name('setting.website');
 });

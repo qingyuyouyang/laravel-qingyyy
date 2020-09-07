@@ -31,8 +31,19 @@ class SettingController extends Controller
 
         $article_nums = Post::count();
 
-        $updates = setting('site');
-        $updates['article_nums'] = $article_nums;
-        return response()->json($updates);
+        $sidebar['visited'] = $visited -> value;
+        $sidebar['run_days'] = $run_days -> value;
+        $sidebar['article_nums'] = $article_nums;
+        $sidebar['title'] = setting('site')['title'];
+        $sidebar['jumbotron'] = config('app.url').'/storage/'.setting('site')['jumbotron'];
+        $sidebar['avatar'] = config('app.url').'/storage/'.setting('site')['avatar'];
+        return response()->json($sidebar);
+    }
+
+    public function website()
+    {
+        $setting = setting('site');
+        $setting['logo'] = config('app.url').'/storage/'.setting('site')['logo'];
+        return response()->json($setting);
     }
 }
