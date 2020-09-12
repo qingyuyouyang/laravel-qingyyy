@@ -13,7 +13,6 @@ class PostsController extends Controller
     public function index(Post $post)
     {
         $posts = Post::orderBy('created_at', 'desc')->with('category')->paginate(3);
-        $posts->category_name = $post->category;
         return response()->json($posts);
     }
 
@@ -25,12 +24,9 @@ class PostsController extends Controller
         return response()->json($post);
     }
 
-    public function category(Parsedown $parsedown, Request $request)
+    public function category(Request $request)
     {
-        $categories = Post::where('category_id', $request->category_id)->orderBy('created_at', 'desc')->paginate(3);
-        foreach ($categories as $category) {
-            $category->body = $parsedown->text($category->body);
-        }
+        $categories = Post::where('category_id', $request->category_id)->orderBy('created_at', 'desc')->with('category')->paginate(3);
         return response()->json($categories);
     }
 }
