@@ -20,13 +20,17 @@ class PostsController extends Controller
     {
 
         $post->body = $parsedown->text($post->body);
-        $post->category = $category->find($post->category_id)->where('status','published')->name;
+        $post->category = $category->find($post->category_id)->name;
         return response()->json($post);
     }
 
     public function category(Request $request)
     {
-        $categories = Post::where('category_id', $request->category_id)->orderBy('created_at', 'desc')->with('category')->paginate(3);
+        $where = [
+            'category_id' => $request->category_id,
+            'status'=>'published'
+        ];
+        $categories = Post::where($where)->orderBy('created_at', 'desc')->with('category')->paginate(3);
         return response()->json($categories);
     }
 }
