@@ -12,7 +12,7 @@ class PostsController extends Controller
 {
     public function index(Post $post)
     {
-        $posts = Post::orderBy('created_at', 'desc')->with('category')->paginate(3);
+        $posts = Post::orderBy('created_at', 'desc')->where('status','published')->with('category')->paginate(3);
         return response()->json($posts);
     }
 
@@ -20,7 +20,7 @@ class PostsController extends Controller
     {
 
         $post->body = $parsedown->text($post->body);
-        $post->category = $category->find($post->category_id)->name;
+        $post->category = $category->find($post->category_id)->where('status','published')->name;
         return response()->json($post);
     }
 
