@@ -26,7 +26,7 @@ class SettingController extends Controller
         $visited -> save();
 
         $run_days = Setting::firstWhere('key','site.run_days');
-        $run_days -> value = intval((time() - strtotime("2020-05-31"))/60/60/24);
+        $run_days -> value = intval((time() - strtotime("2020-05-20"))/60/60/24);
         $run_days -> save();
 
         $article_nums = Post::count();

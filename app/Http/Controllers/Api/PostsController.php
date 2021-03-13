@@ -12,7 +12,7 @@ class PostsController extends Controller
 {
     public function index(Post $post)
     {
-        $posts = Post::orderBy('created_at', 'desc')->where('status','published')->with('category')->paginate(3);
+        $posts = Post::orderBy('created_at', 'desc')->where('status','published')->with('category')->paginate(8);
         return response()->json($posts);
     }
 
@@ -30,7 +30,7 @@ class PostsController extends Controller
             'category_id' => $request->category_id,
             'status'=>'published'
         ];
-        $categories = Post::where($where)->orderBy('created_at', 'desc')->with('category')->paginate(3);
+        $categories = Post::where($where)->orderBy('created_at', 'desc')->with('category')->paginate(8);
         return response()->json($categories);
     }
 }
